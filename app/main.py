@@ -9,13 +9,15 @@ from app.db.database import engine
 Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
-# CORS para permitir acceso desde React
+# Configurar CORS: producción (Vercel) y desarrollo local
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000"],
+    allow_origins=[
+        "https://teanimo.vercel.app",     # 🌐 Producción
+        "http://localhost:3000"           # 🧪 Desarrollo local
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
 app.include_router(api.router)
