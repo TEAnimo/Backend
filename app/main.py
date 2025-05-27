@@ -13,8 +13,8 @@ app = FastAPI()
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
-        "https://teanimo.vercel.app",     # 🌐 Producción
-        "http://localhost:3000"           # 🧪 Desarrollo local
+        "https://teanimo.vercel.app",     # Producción
+        "http://localhost:3000"           # Desarrollo local
     ],
     allow_credentials=True,
     allow_methods=["*"],

@@ -15,7 +15,7 @@ class DataPreprocessor:
         ]
         self.data = dict(zip(self.campos, raw_values))
 
-        # 🔽 Parámetros min-max para normalización
+        # Parámetros min-max para normalización
         self.scaling_params = {
             "Age_Years": (1, 18),
             "Sex_M": (0, 1),
