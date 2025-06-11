@@ -131,7 +131,7 @@ class DataPreprocessor:
             "Comorbidity_%": comorb
         }
 
-        # Orden esperado por el modelo AdaBoost
+        # Orden esperado por el modelo SVM
         ordered_vars = [
             "PCA_1", "A6", "A9", "Social_Interaction_Issues_%", "A7", "A5", "Qchat_10_Score",
             "Communication_Issues_%", "A4", "A1", "A2", "A8", "Sex_M", "A3",

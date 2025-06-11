@@ -26,3 +26,6 @@ Thumbs.db
 *.sqlite3
 
 build/
+
+# Ignorar los archivos de caché de pytest
+.pytest_cache/

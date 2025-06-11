@@ -83,12 +83,14 @@ Abre en tu navegador: http://localhost:8000/docs
 ```
 .
 ├── app/
-│   ├── db/
-│   ├── model/
-│   ├── schemas/
-│   ├── utils/
-│   ├── api.py
-│   └── main.py
+│ ├── db/
+│ ├── model/
+│ ├── schemas/
+│ ├── utils/
+│ ├── api.py
+│ └── main.py
+├── notebooks/
+├── tests/
 ├── model.pkl
 ├── pca_model.pkl
 ├── requirements.txt
