@@ -1,6 +1,12 @@
-from sqlalchemy import Column, Integer, SmallInteger, String, Numeric, CHAR, DateTime
+from sqlalchemy import (
+    Column, Integer, SmallInteger, Text, String, Numeric, Boolean, CHAR, DateTime,
+    UniqueConstraint, CheckConstraint, Index, text, func
+)
 from datetime import datetime, timezone
+from sqlalchemy.orm import validates
+from passlib.context import CryptContext
 from .database import Base
+import re
 
 class Evaluacion(Base):
     __tablename__ = "evaluaciones"
@@ -47,3 +53,51 @@ class Evaluacion(Base):
     )
     hora_fin = Column(DateTime(timezone=True), nullable=False)
     duracion_minutos = Column(SmallInteger, nullable=False)
+
+pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+
+class Usuario(Base):
+    __tablename__ = "usuario"
+
+    id = Column(Integer, primary_key=True, index=True)
+
+    username = Column(Text, nullable=False, unique=True)  # unicidad aquí
+    password_hash = Column(Text, nullable=False)
+
+    is_active = Column(Boolean, nullable=False, server_default=text("true"))
+    last_login = Column(DateTime(timezone=True), nullable=True)
+
+    created_at = Column(
+        DateTime(timezone=True),
+        server_default=text("date_trunc('second', now())"),
+        nullable=False,
+    )
+    updated_at = Column(
+        DateTime(timezone=True),
+        server_default=text("date_trunc('second', now())"),
+        server_onupdate=text("date_trunc('second', now())"),
+        onupdate=func.now(), # pylint: disable=E1102
+        nullable=False,
+    )
+
+    __table_args__ = (
+        UniqueConstraint("username", name="uq_usuario_username"),
+        Index("ix_usuario_is_active", "is_active"),
+    )
+
+    # -------- API de contraseñas
+    def set_password(self, password: str):
+        if pwd_context is None:
+            raise RuntimeError("pwd_context no inicializado. Importa tu contexto de passlib.")
+        self.password_hash = pwd_context.hash(password)
+
+    def verify_password(self, password: str) -> bool:
+        if pwd_context is None:
+            raise RuntimeError("pwd_context no inicializado. Importa tu contexto de passlib.")
+        return pwd_context.verify(password, self.password_hash)
+
+    @validates("username")
+    def validate_username(self, key, username):
+        if not username or not username.strip():
+            raise ValueError("El username no puede estar vacío.")
+        return username.strip()
