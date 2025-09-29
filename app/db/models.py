@@ -1,12 +1,11 @@
 from sqlalchemy import (
     Column, Integer, SmallInteger, Text, String, Numeric, Boolean, CHAR, DateTime,
-    UniqueConstraint, CheckConstraint, Index, text, func
+    UniqueConstraint, Index, text, func
 )
 from datetime import datetime, timezone
 from sqlalchemy.orm import validates
 from passlib.context import CryptContext
 from .database import Base
-import re
 
 class Evaluacion(Base):
     __tablename__ = "evaluaciones"
