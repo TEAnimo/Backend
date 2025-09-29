@@ -1,4 +1,5 @@
-from sqlalchemy import Column, Integer, SmallInteger, String, Numeric, CHAR, TIMESTAMP
+from sqlalchemy import Column, Integer, SmallInteger, String, Numeric, CHAR, DateTime
+from datetime import datetime, timezone
 from .database import Base
 
 class Evaluacion(Base):
@@ -39,6 +40,10 @@ class Evaluacion(Base):
     rasgos_tea = Column(String(2))  # 'Si' o 'No'
     nivel_confianza = Column(Numeric(3, 2))
 
-    hora_inicio = Column(TIMESTAMP)
-    hora_fin = Column(TIMESTAMP)
-    duracion_minutos = Column(SmallInteger)
+    hora_inicio = Column(
+        DateTime(timezone=True),
+        default=lambda: datetime.now(timezone.utc).replace(microsecond=0),
+        nullable=False
+    )
+    hora_fin = Column(DateTime(timezone=True), nullable=False)
+    duracion_minutos = Column(SmallInteger, nullable=False)
