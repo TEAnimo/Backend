@@ -53,7 +53,12 @@ class Evaluacion(Base):
     hora_fin = Column(DateTime(timezone=True), nullable=False)
     duracion_minutos = Column(SmallInteger, nullable=False)
 
-pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+# coste (rounds) >= 12
+pwd_context = CryptContext(
+    schemes=["bcrypt"],
+    deprecated="auto",
+    bcrypt__rounds=12, # coste explícito >= 12
+)
 
 class Usuario(Base):
     __tablename__ = "usuario"

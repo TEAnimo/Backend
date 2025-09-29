@@ -3,7 +3,7 @@ from sqlalchemy.exc import IntegrityError
 from app.db.models import Usuario
 from app.db.database import SessionLocal
 
-# Usuario admin por defecto (sin email)
+# Usuario admin por defecto
 USUARIO_DEFAULT = {
     "username": "ECastro",
     "password_plano": "Admin123",

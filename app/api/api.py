@@ -8,6 +8,8 @@ from app.model.data_preprocessor import DataPreprocessor
 from app.utils.email_sender import enviar_pdf_por_correo
 from app.utils.conversion import sanitize_numpy_types
 from app.model.predictor import predecir
+from app.api.deps_auth import get_current_user
+from app.db.models import Usuario
 from pydantic import EmailStr
 from app.utils.email_config import conf  # configuración separada
 from datetime import datetime

@@ -58,7 +58,7 @@ def test_predicciones_ml_api():
 
     # Asegurarnos de que la predicción devuelva resultados correctos usando el modelo en el API
     from fastapi.testclient import TestClient
-    from app.api import router
+    from app.api.api import router
 
     client = TestClient(router)
 
