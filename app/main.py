@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from app.api import api, auth
+from app.api import api, auth, dashboard
 # Para crear las tablas en Railway (solo la primera vez o si no existen)
 from app.db.models import Base
 from app.db.init_db import init_usuario_default
@@ -12,6 +12,7 @@ Base.metadata.create_all(bind=engine)
 app = FastAPI()
 app.include_router(api.router)
 app.include_router(auth.router)
+app.include_router(dashboard.router)
 
 init_usuario_default()
 
