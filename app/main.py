@@ -44,7 +44,4 @@ app.mount("/static", StaticFiles(directory="app/frontend/static"), name="static"
 @app.get("/")
 @app.get("/{full_path:path}")
 async def serve_react_app(full_path: str = None):
-    """
-    Cualquier ruta no API carga el React interno para page.teanimo.tech
-    """
     return FileResponse(os.path.join("app", "frontend", "index.html"))
