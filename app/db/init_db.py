@@ -5,8 +5,8 @@ from app.db.database import SessionLocal
 
 # Usuario admin por defecto
 USUARIO_DEFAULT = {
-    "username": "ECastro",
-    "password_plano": "Admin123",
+    "username": "MBecerra",
+    "password_plano": "Plena2024",
 }
 
 def crear_usuario_default(db: Session) -> Usuario:
