@@ -1,19 +1,19 @@
 import os
 from sqlalchemy import create_engine
 from sqlalchemy.orm import declarative_base, sessionmaker
-from dotenv import load_dotenv
 
-# Cargar variables de entorno desde el archivo .env
-# load_dotenv()
+# Leer la URL de conexión de Heroku
+DATABASE_URL = os.getenv("DATABASE_URL")
 
-# Leer la URL de conexión a PostgreSQL
-SQLALCHEMY_DATABASE_URL = os.getenv("DATABASE_URL")
+# Heroku entrega postgres:// pero SQLAlchemy exige postgresql://
+if DATABASE_URL and DATABASE_URL.startswith("postgres://"):
+    DATABASE_URL = DATABASE_URL.replace("postgres://", "postgresql://", 1)
 
 # Crear el engine de SQLAlchemy
 engine = create_engine(
-  SQLALCHEMY_DATABASE_URL,
-  pool_pre_ping=True,
-  connect_args={"sslmode": "require"},
+    DATABASE_URL,
+    pool_pre_ping=True,
+    connect_args={"sslmode": "require"},
 )
 
 # Configurar sesión
